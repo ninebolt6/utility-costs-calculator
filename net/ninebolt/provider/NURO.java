@@ -24,7 +24,7 @@ public class NURO extends Provider {
     public int calculateBill(int gasUsage, int electricityUsage) {
         int gasBill = calculateGasBill(gasUsage) - 200;
         int elecBill = calculateElectricityBill(electricityUsage) - 501;
-        System.out.println("ガス料金 " + gasBill + ", 電気料金 " + elecBill);
+        System.out.println("ガス料金 " + gasBill + "円, 電気料金 " + elecBill + "円");
 
         return gasBill + elecBill;
     }
@@ -32,7 +32,8 @@ public class NURO extends Provider {
     public int calculateGasBill(int gasUsage) {
         double gasBill = 0.0;
         int gasStage = calculateGasStage(gasUsage, gasStageTable);
-        System.out.println("ガス: ステージ" + gasStage + ", 基本料金" + gasBasicFeeTable[gasStage] + ", 基準単位料金" + gasUnitFeeTable[gasStage]);
+        // DEBUG
+        // System.out.println("ガス: ステージ" + gasStage + ", 基本料金" + gasBasicFeeTable[gasStage] + ", 基準単位料金" + gasUnitFeeTable[gasStage]);
         gasBill += gasBasicFeeTable[gasStage];
         gasBill += gasUnitFeeTable[gasStage] * gasUsage;
         // 電気セット割引
@@ -47,7 +48,11 @@ public class NURO extends Provider {
 
         double elecBill = 0.0;
         int index = 0;
-        System.out.println("電気: 基本料金" + elecBasicFeeTable[elecStage]);
+
+        // DEBUG
+        // System.out.println("電気: 基本料金" + elecBasicFeeTable[elecStage]);
+        double elecBasicFee = elecBasicFeeTable[elecStage];
+        elecBill += elecBasicFee;
 
         while(elecUsage <= electricityUsage) {
             elecUsage++;
@@ -59,7 +64,8 @@ public class NURO extends Provider {
         
         //再生可能エネルギー発電促進賦課金
         int renewableFee = (int) Math.floor(renewableEnergyFee * (double)electricityUsage);
-        System.out.println("再生可能エネルギー発電促進賦課金 " + renewableFee);
+        // DEBUG
+        // System.out.println("再生可能エネルギー発電促進賦課金 " + renewableFee);
         elecBill += renewableFee;
 
         // ガスセット割引

@@ -23,7 +23,7 @@ public class Sanix extends Provider{
     public int calculateBill(int gasUsage, int electricityUsage) {
         int gasBill = calculateGasBill(gasUsage);
         int elecBill = calculateElectricityBill(electricityUsage);
-        System.out.println("ガス料金 " + gasBill + ", 電気料金 " + elecBill);
+        System.out.println("ガス料金 " + gasBill + "円, 電気料金 " + elecBill + "円");
 
         return gasBill + elecBill;
     }
@@ -31,9 +31,13 @@ public class Sanix extends Provider{
     public int calculateGasBill(int gasUsage) {
         double gasBill = 0.0;
         int gasStage = calculateGasStage(gasUsage, gasStageTable);
+
         gasBill += gasBasicFeeTable[gasStage];
         gasBill += gasUnitFeeTable[gasStage] * (double)gasUsage;
-        System.out.println("ガス: ステージ" + gasStage + ", 基本料金" + gasBasicFeeTable[gasStage] + ", 基準単位料金" + gasUnitFeeTable[gasStage]);
+
+        // DEBUG
+        // System.out.println("ガス: ステージ" + gasStage + ", 基本料金" + gasBasicFeeTable[gasStage] + ", 基準単位料金" + gasUnitFeeTable[gasStage]);
+
         gasBill -= Math.floor(gasBill*0.03);
         return (int) Math.floor(gasBill);
     }
@@ -45,7 +49,9 @@ public class Sanix extends Provider{
         double elecBill = 0.0;
         double elecBasicFee = elecBasicFeeTable[elecStage];
         elecBill += elecBasicFee;
-        System.out.println("電気: 基本料金" + elecBasicFee);
+
+        // DEBUG
+        // System.out.println("電気: 基本料金" + elecBasicFee);
         
         int index = 0;
         while(usageCounter <= electricityUsage) {
@@ -58,7 +64,8 @@ public class Sanix extends Provider{
 
         //再生可能エネルギー発電促進賦課金
         int renewableFee = (int) Math.floor(renewableEnergyFee * (double)electricityUsage);
-        System.out.println("再生可能エネルギー発電促進賦課金 " + renewableFee);
+        // DEBUG
+        // System.out.println("再生可能エネルギー発電促進賦課金 " + renewableFee);
         elecBill += renewableFee;
         
         return (int) Math.floor(elecBill);
