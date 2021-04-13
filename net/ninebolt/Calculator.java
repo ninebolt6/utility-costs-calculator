@@ -8,10 +8,13 @@ import net.ninebolt.provider.NURO;
 import net.ninebolt.provider.Sanix;
 import net.ninebolt.provider.TokyoGas;
 
+/**
+ * Main class
+ * @author ninebolt6
+ */
 public class Calculator {
-    private static List<Provider> list;
     public static void main(String[] args) {
-        list = new ArrayList<Provider>();
+        List<Provider> list = new ArrayList<Provider>();
         list.add(new NURO());
         list.add(new TokyoGas());
         list.add(new Sanix());
