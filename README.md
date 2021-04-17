@@ -7,4 +7,4 @@
 
 ![image](https://user-images.githubusercontent.com/67471674/114558475-a95e5280-9ca5-11eb-8da2-ba963e48b724.png)
 
-*各会社のクラスは、Providerクラスを継承し #calculateBill(int gasUsage, int electricityUsage)を実装する必要があります。*
+*各会社のクラスは、Providerクラスを継承し #calculateBill(int gasUsage, int electricityUsage)を持つ必要があります。*
